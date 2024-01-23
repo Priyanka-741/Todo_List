@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <style>
+    .bgimage{
+        background-image: url(https://t3.ftcdn.net/jpg/05/13/59/72/360_F_513597277_YYqrogAmgRR9ohwTUnOM784zS9eYUcSk.jpg);
+        background-size: cover;
+        height: 400px;
+    }
+    .btn.btn-outline-custom{
+        color: rgb(127, 57, 129);
+        background-color: transparent;
+        border: 2px solid rgb(127, 57, 129);
+        border-radius: 10px;
+      }
+      .btn.btn-outline-custom:hover{
+      color: white;
+      background-color:  rgb(209, 160, 211);
+      border-color:rgb(221, 151, 221) ;
+    }
+  </style>
+  <body>
+    {% include 'header.html' %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-5 shadow">
+                <form method='post' action="">
+                    {% csrf_token %}
+                    <div class="alert">
+                        <h2>Login Here</h2>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Username" class="form-label"><h5>Username:</h5></label>
+                        <input type="text" class="form-control" name="uname" id="uname" placeholder="Enter username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label"><h5>Password:</h5></label>
+                        <input type="password" class="form-control" name="pass" id="password" placeholder="Enter Password">
+                    </div>
+                    <div class="mb-3 pt-2">
+                        <input type="submit" class="btn btn-outline-custom" value="Login">
+                    </div>     
+                </form>  
+            </div>  
+            <div class="col-md-7 bgimage shadow"></div> 
+        </div>
+    </div>
+</body>
+</html>

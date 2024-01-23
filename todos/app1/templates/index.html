@@ -1,0 +1,122 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My_List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      .alert.alert-success{
+        background-color: rgb(238, 222, 238);
+      }
+
+      .btn.btn-outline-custom{
+        color: rgb(127, 57, 129);
+        background-color: transparent;
+        border: 2px solid rgb(127, 57, 129);
+        border-radius: 10px;
+      }
+      .btn.btn-outline-custom:hover{
+      color: white;
+      background-color:  rgb(194, 137, 196);
+      border-color:rgb(221, 151, 221) ;
+    }
+    </style>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <div>
+      <div class="container pt-4">
+        <div class="row mt-5 p-0">
+            <div class="col-md-5 mx-auto p-0 shadow">
+                <form method='POST' action="/add_todo/">
+                   {% csrf_token %}
+                    <div class="alert alert-success">
+                        <h3>Add New Items</h3>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label"><b>Title:</b></label>
+                      <input type="text" class="form-control" name="title" id="exampleFormControlInput1" placeholder="Enter task">
+                    </div>
+                    <div class="mb-3">
+                      <label><b>Status:</b></label>
+                      <select class="form-select" aria-label="Default select example" name="status">
+                        <option value="C">Completed</option>
+                        <option value="P">Pending</option>
+                      </select>
+                    </div>  
+                    <div class="mb-3">
+                      <label><b>Priority:</b></label>
+                      <select class="form-select" aria-label="Default select example" name="priority">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <input type="submit" class="btn btn-outline-custom" value="Add">
+                  </div>
+                </form>  
+            </div>
+            <div class="col mr-5">
+              <div class="border">
+                {% if todos|length == 0 %}
+                   <div class="p-4">
+                    <br>
+                    <br>
+                    <div class="alert alert-success text-center">
+                      <p class="", style="font-size: 30px;">Hurray!!! No Tasks<i class="bi bi-emoji-smile"></i></p>
+                    </div>
+                    <br>
+                    <br>
+                   </div>
+                {% else %}
+                <div>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Sr no.</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>                      
+                      {% for todo in todos %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{todo.title}}</td>
+                        <td>{{todo.status}}</td>
+                        <td>{{todo.priority}}</td>
+                        <td>   
+                          <a href="/delete-todo/{{todo.id}}" title="delete"><button class="btn btn-outline-danger btn-sm">delete<i class="bi bi-trash3"></i></button></a>
+                          <a href="/update-todo/{{todo.id}}" title="update"><button class="btn btn-outline-secondary btn-sm">update<i class="bi bi-pencil"></i></button></a>
+                          {% if todo.status == 'P' %}
+                          <a href="/change-status/{{todo.id}}/C" title="Mark Completed"><button class="btn btn-outline-primary btn-sm">Complete <i class="bi bi-check-square-fill"></i></button></a>
+                          {% else %}
+                          <a href="/change-status/{{todo.id}}/P" title="Mark Pending"><i class="bi bi-hourglass-split"></i></a>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% endfor %}                      
+                    </tbody>
+                  </table>
+                </div>
+                {% endif %}
+              </div>
+          </div>         
+        </div>
+    </div>
+  </div>  
+</body>
+</html>
